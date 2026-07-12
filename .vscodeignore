@@ -1,0 +1,30 @@
+# Source is bundled into dist/ by webpack — ship the bundle, not the sources.
+src/**
+webpack.config.js
+node_modules/**
+out/**
+dist/**/*.map
+
+# Repo / tooling
+.vscode/**
+.vscode-test/**
+.gitignore
+.backslash/**
+*.vsix
+RELEASE.md
+
+# Stray LaTeX build artifacts (never bundle workspace docs)
+*.tex
+*.bib
+*.pdf
+*.png
+*.jpg
+*.log
+*.aux
+*.cls
+*.sty
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.synctex.gz

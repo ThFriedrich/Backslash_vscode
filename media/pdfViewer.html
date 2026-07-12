@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="__CSP__" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --toolbar-h: 36px;
+      --toolbar-bg: #333638;
+      --toolbar-fg: #e8e8e8;
+      --toolbar-hover: #4a4d4f;
+    }
+    html, body { margin: 0; padding: 0; height: 100%; background: #525659; overflow: hidden; }
+    #toolbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--toolbar-h);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 8px;
+      background: var(--toolbar-bg);
+      color: var(--toolbar-fg);
+      font-family: var(--vscode-font-family, sans-serif);
+      font-size: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      z-index: 10;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    #toolbar .sep { width: 1px; height: 20px; background: rgba(255,255,255,0.15); margin: 0 6px; }
+    #toolbar .spacer { flex: 1; }
+    #toolbar button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 26px;
+      padding: 0 6px;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--toolbar-fg);
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+    }
+    #toolbar button:hover:not(:disabled) { background: var(--toolbar-hover); }
+    #toolbar button:disabled { opacity: 0.4; cursor: default; }
+    #toolbar button.active { background: var(--toolbar-hover); outline: 1px solid rgba(255,255,255,0.25); }
+    #toolbar input#pageInput {
+      width: 34px;
+      height: 22px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 3px;
+      background: #1e1e1e;
+      color: var(--toolbar-fg);
+      font-size: 12px;
+    }
+    #toolbar .label { opacity: 0.85; padding: 0 2px; }
+    #zoomLabel { min-width: 42px; text-align: center; }
+    #viewer {
+      position: absolute;
+      top: var(--toolbar-h);
+      left: 0; right: 0; bottom: 0;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 0;
+      box-sizing: border-box;
+    }
+    .page-wrapper { margin: 0 0 16px 0; }
+    canvas.page {
+      display: block;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+      background: #fff;
+    }
+    #status {
+      position: fixed;
+      top: calc(var(--toolbar-h) + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 12px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-family: var(--vscode-font-family, sans-serif);
+      font-size: 12px;
+      display: none;
+      z-index: 20;
+    }
+    #status.error { background: #a1260d; }
+  </style>
+</head>
+<body>
+  <div id="toolbar">
+    <button id="prev" title="Previous page (PageUp)">▲</button>
+    <button id="next" title="Next page (PageDown)">▼</button>
+    <input id="pageInput" type="number" min="1" value="1" title="Page" />
+    <span id="pageCount" class="label">/ 0</span>
+    <span class="sep"></span>
+    <button id="zoomOut" title="Zoom out (Ctrl -)">−</button>
+    <span id="zoomLabel">100%</span>
+    <button id="zoomIn" title="Zoom in (Ctrl +)">+</button>
+    <span class="sep"></span>
+    <button id="fitWidth" title="Fit width (Ctrl 0)">Fit width</button>
+    <button id="fitPage" title="Fit page">Fit page</button>
+    <span class="spacer"></span>
+  </div>
+  <div id="status"></div>
+  <div id="viewer"></div>
+  <script nonce="__NONCE__">
+    window.BACKSLASH = {
+      fileUri: "__FILE_URI__",
+      workerUri: "__WORKER_URI__",
+    };
+  </script>
+  <script type="module" nonce="__NONCE__" src="__SCRIPT_URI__"></script>
+</body>
+</html>

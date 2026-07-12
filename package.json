@@ -1,0 +1,313 @@
+{
+  "name": "backslash-vscode",
+  "displayName": "Backslash Sync",
+  "description": "Edit LaTeX locally in VS Code and push/compile/pull PDF against a self-hosted Backslash server via its REST API.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "latex",
+    "backslash",
+    "pdf",
+    "sync",
+    "tex"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/backslash-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/backslash-vscode/issues"
+  },
+  "homepage": "https://github.com/your-org/backslash-vscode#readme",
+  "main": "./dist/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "vsix": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.1",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "backslash.setApiKey",
+        "title": "Backslash: Set API Key",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.clearApiKey",
+        "title": "Backslash: Clear API Key",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.selectProject",
+        "title": "Backslash: Select Project",
+        "icon": "$(list-selection)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.setMainFile",
+        "title": "Backslash: Set Main File (Entrypoint)",
+        "icon": "$(file-symlink-file)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.pushAndCompile",
+        "title": "Backslash: Compile & Preview PDF",
+        "icon": "$(debug-start)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.compile",
+        "title": "Backslash: Compile (server)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.viewPdf",
+        "title": "Backslash: View PDF",
+        "icon": "$(open-preview)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.pullPdf",
+        "title": "Backslash: Pull PDF",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.showLogs",
+        "title": "Backslash: Show Build Logs",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.pullAll",
+        "title": "Backslash: Download Project (Clone)",
+        "icon": "$(cloud-download)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.syncPush",
+        "title": "Backslash: Sync → Push Local Changes",
+        "icon": "$(arrow-up)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.syncPull",
+        "title": "Backslash: Sync ← Pull Server Changes",
+        "icon": "$(arrow-down)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.syncStatus",
+        "title": "Backslash: Show Sync Status",
+        "icon": "$(git-compare)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.refreshFileTree",
+        "title": "Backslash: Refresh File Tree",
+        "icon": "$(refresh)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.openRemoteFile",
+        "title": "Open",
+        "icon": "$(go-to-file)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.deleteRemoteFile",
+        "title": "Delete from Server",
+        "icon": "$(trash)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.setMainFileFromTree",
+        "title": "Set as Main File (Entrypoint)",
+        "icon": "$(star-full)",
+        "category": "Backslash"
+      },
+      {
+        "command": "backslash.uploadLocalFile",
+        "title": "Backslash: Upload File to Server",
+        "icon": "$(cloud-upload)",
+        "category": "Backslash"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "backslash",
+          "title": "Backslash",
+          "icon": "$(book)"
+        }
+      ]
+    },
+    "views": {
+      "backslash": [
+        {
+          "id": "backslashFiles",
+          "name": "Project Files",
+          "icon": "$(files)"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "backslash.syncPull",
+          "when": "view == backslashFiles",
+          "group": "navigation@1"
+        },
+        {
+          "command": "backslash.syncPush",
+          "when": "view == backslashFiles",
+          "group": "navigation@2"
+        },
+        {
+          "command": "backslash.refreshFileTree",
+          "when": "view == backslashFiles",
+          "group": "navigation@3"
+        },
+        {
+          "command": "backslash.selectProject",
+          "when": "view == backslashFiles",
+          "group": "1_project@1"
+        },
+        {
+          "command": "backslash.pullAll",
+          "when": "view == backslashFiles",
+          "group": "1_project@2"
+        },
+        {
+          "command": "backslash.setMainFile",
+          "when": "view == backslashFiles",
+          "group": "1_project@3"
+        },
+        {
+          "command": "backslash.syncStatus",
+          "when": "view == backslashFiles",
+          "group": "1_project@4"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "backslash.pushAndCompile",
+          "when": "resourceExtname == .tex",
+          "group": "navigation@1"
+        },
+        {
+          "command": "backslash.viewPdf",
+          "when": "resourceExtname == .tex",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "backslash.openRemoteFile",
+          "when": "view == backslashFiles && (viewItem == file || viewItem == mainFile)",
+          "group": "inline@1"
+        },
+        {
+          "command": "backslash.setMainFileFromTree",
+          "when": "view == backslashFiles && viewItem == file",
+          "group": "1_modification@1"
+        },
+        {
+          "command": "backslash.deleteRemoteFile",
+          "when": "view == backslashFiles && (viewItem == file || viewItem == mainFile)",
+          "group": "1_modification@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "backslash.uploadLocalFile",
+          "when": "!explorerResourceIsFolder",
+          "group": "backslash@1"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "backslash.pushAndCompile",
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b",
+        "when": "resourceExtname == .tex"
+      },
+      {
+        "command": "backslash.viewPdf",
+        "key": "ctrl+alt+v",
+        "mac": "cmd+alt+v",
+        "when": "resourceExtname == .tex"
+      }
+    ],
+    "configuration": {
+      "title": "Backslash",
+      "properties": {
+        "backslash.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "markdownDescription": "Base URL of your Backslash server. Use `http://localhost:3000` if VS Code runs on the server itself."
+        },
+        "backslash.projectId": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "The Backslash project ID linked to this workspace. Set automatically by 'Backslash: Select Project'."
+        },
+        "backslash.engine": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "pdflatex",
+            "xelatex",
+            "lualatex",
+            "latex"
+          ],
+          "description": "LaTeX engine to request for server-side compilation."
+        },
+        "backslash.pushInclude": {
+          "type": "string",
+          "default": "**/*.{tex,bib,cls,sty,bst,bbx,cbx,png,jpg,jpeg,pdf,eps,svg,txt}",
+          "description": "Glob of files to push to the server."
+        },
+        "backslash.pushExclude": {
+          "type": "string",
+          "default": "**/{node_modules,.git,.backslash,out,.vscode}/**",
+          "description": "Glob of files to exclude from pushing."
+        },
+        "backslash.openPdfAfterCompile": {
+          "type": "boolean",
+          "default": true,
+          "description": "Download and open the PDF automatically after a successful compile."
+        },
+        "backslash.buildOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically push, compile, and preview the PDF whenever a .tex file is saved."
+        },
+        "backslash.offlineMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Work offline: edit locally without contacting the server. Auto build-on-save is disabled; use the manual Sync → Push / Sync ← Pull commands to synchronize with the server."
+        }
+      }
+    }
+  }
+}
