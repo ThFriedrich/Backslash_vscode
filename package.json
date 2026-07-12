@@ -3,7 +3,7 @@
   "displayName": "Backslash Sync",
   "description": "Edit LaTeX locally in VS Code and push/compile/pull PDF against a self-hosted Backslash server via its REST API.",
   "version": "0.1.0",
-  "publisher": "local",
+  "publisher": "thfriedrich",
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
@@ -20,12 +20,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/backslash-vscode.git"
+    "url": "https://github.com/ThFriedrich/Backslash_vscode"
   },
   "bugs": {
-    "url": "https://github.com/your-org/backslash-vscode/issues"
+    "url": "https://github.com/ThFriedrich/Backslash_vscode/issues"
   },
-  "homepage": "https://github.com/your-org/backslash-vscode#readme",
+  "homepage": "https://github.com/ThFriedrich/Backslash_vscode#readme",
   "main": "./dist/extension.js",
   "scripts": {
     "vscode:prepublish": "npm run package",
